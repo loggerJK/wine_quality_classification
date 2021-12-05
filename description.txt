@@ -1,0 +1,139 @@
+1. train.csv : 학습 데이터
+id : 식별 고유값
+fixed acidity : 고정(비휘발성) 산도: 와인과 관련된 대부분의 산
+volatile acidity : 휘발성 산도: 와인에 함유된 아세트산의 양. 너무 높으면 불쾌한 식초 맛이 날 수 있음
+citric acid : 구연산: 소량으로 발견되며, 와인에 풍미를 더할 수 있음
+residual sugar : 잔여 당분: 발효가 멈춘 후 남은 설탕의 양으로 1g/L 미만의 와인은 드물며 45g/L 이상의 와인은 단맛으로 간주함
+chlorides : 염소화물: 와인의 염분량
+free sulfur dioxide : 유리 이산화황: 미생물의 성장과 와인의 산화를 방지함
+total sulfur dioxide : 총 이산화황: 저농도에서는 대부분 맛이 나지 않으나 50ppm 이상의 농도에서 맛에서 뚜렷하게 나타남
+density : 밀도: 알코올 및 당 함량에 따라 변함
+pH : 산성 또는 염기성 정도. 0(매우 산성) ~ 14(매우 염기성). 대부분의 와인은 pH 3-4 사이임
+sulphates : 황산염: 이산화황 농도에 기여할 수 있는 와인 첨가제. 항균 및 항산화제로 작용
+alcohol : 와인의 알코올 함량 백분율
+type : 와인에 사용된 포도의 종류. Red(적포도주), White(백포도주)로 나뉨
+quality : 맛으로 평가된 와인의 품질
+
+총 14 feature
+id, quality(target) 제외하면 12개 feature
+
+
+2. test.csv : 테스트 데이터
+id : 식별 고유값
+fixed acidity : 고정(비휘발성) 산도: 와인과 관련된 대부분의 산
+volatile acidity : 휘발성 산도: 와인에 함유된 아세트산의 양. 너무 높으면 불쾌한 식초 맛이 날 수 있음
+citric acid : 구연산: 소량으로 발견되며, 와인에 풍미를 더할 수 있음
+residual sugar : 잔여 당분: 발효가 멈춘 후 남은 설탕의 양으로 1g/L 미만의 와인은 드물며 45g/L 이상의 와인은 단맛으로 간주함
+chlorides : 염소화물: 와인의 염분량
+free sulfur dioxide : 유리 이산화황: 미생물의 성장과 와인의 산화를 방지함
+total sulfur dioxide : 총 이산화황: 저농도에서는 대부분 맛이 나지 않으나 50ppm 이상의 농도에서 맛에서 뚜렷하게 나타남
+density : 밀도: 알코올 및 당 함량에 따라 변함
+pH : 산성 또는 염기성 정도. 0(매우 산성) ~ 14(매우 염기성). 대부분의 와인은 pH 3-4 사이임
+sulphates : 황산염: 이산화황 농도에 기여할 수 있는 와인 첨가제. 항균 및 항산화제로 작용
+alcohol : 와인의 알코올 함량 백분율
+type : 와인에 사용된 포도의 종류. Red(적포도주), White(백포도주)로 나뉨
+
+
+
+
+3. sample_submissoin.csv : 제출 양식
+id : 식별 고유값
+quality : 맛으로 평가된 와인의 품질
+
+
+
+
+
+
+
+위 자료는 아래 데이터를 바탕으로 제작되었습니다.
+
+
+
+P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
+			Modeling wine preferences by data mining from physicochemical properties. In Decision Support Systems, Elsevier, 47(4):547-553, 2009.
+
+
+=================================================================
+
+- 총 train data 개수 : 3231
+
+- 결측치는 없다
+
+<Feature Genrator>
+- residual sugar > 45 
+
+- total sulfur dioxide > 50
+
+<Outlier>
+- residual sugar에 maximum outlier가 하나 관측됨
+1 : 65.8
+2 : 26.05
+
+- density > 1.03
+
+
+1. class 4 & 8이 부족 --> Augmentation? or 비율 맞춰주기 : Data Imbalance 문제
+- training 할 때, id 값은 필요 X
+
+2. oputna 이용해서 하이퍼파라미터 튜닝
+
+3. 앙상블
+
+=====================Training========================
+1. no hyperparam tuning, 3 fold cross validation
+[0.6675951717734447, 0.6731662024141133, 0.6703806870937791]
+
+
+
+
+
+default param
+default dataset
+0.6696594427244582
+
+
+default param
+sampling_strategy = {4: 400, 8: 400}
+0.6588235294117647
+
+
+default param
+sampling_strategy = {4: 600, 7:800,8: 600}
+0.6365325077399381
+
+============Train Test Split=============
+-
+original data
+6    1417
+5    1069
+7     539
+4     108
+8      97
+
+-
+shuffle = True, stratify = None
+6    1079
+5     785
+7     410
+4      80
+8      68
+
+-
+shuffle = False, stratify = None
+6    1074
+5     786
+7     413
+4      75
+8      74
+
+===========IMBALANCED DATASET==========
+https://www.kaggle.com/rafjaa/resampling-strategies-for-imbalanced-datasets
+
+단순 accuracy는 imbalanced dataset을 평가할 때 문제가 될 소지가 있다. Classifier가 아무 생각 없이 train set에서 높은 비율에 해당하는 class를 선택해서 높은 accuracy를 보여주는 문제를 일으킬 수도 있기 때문이다.
+
+매우 unbalanced한 dataset에서, classifier가 featur에 대한 분석을 제대로 수행하지 않고 가장 흔한 클래스를 선택한다면, 높은 accuracy rate를 보여줄 것이다. 물론 이건 환상에 불과하다
+
+Oversampling의 단점 : overfitting에 취약
+Undersampling의 단점 : 정보 손실
+
