@@ -80,6 +80,8 @@ P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
 
 3. 앙상블
 
+4. PCA와 같은 기법을 활용해 feature를 추가해줄까?
+
 =====================Training========================
 1. no hyperparam tuning, 3 fold cross validation
 [0.6675951717734447, 0.6731662024141133, 0.6703806870937791]
