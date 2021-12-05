@@ -86,23 +86,61 @@ P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.
 1. no hyperparam tuning, 3 fold cross validation
 [0.6675951717734447, 0.6731662024141133, 0.6703806870937791]
 
-
-
-
-
 default param
 default dataset
-0.6696594427244582
-
+0.5754950495049505
+0.6643962848297214
 
 default param
-sampling_strategy = {4: 400, 8: 400}
-0.6588235294117647
+sampling_strategy = {4: 200, 8: 200}
+0.6709420610349403
+0.6721362229102167
 
+default param
+sampling_strategy = {4: 250, 8: 250}
+0.6842105263157895
+0.679876160990712
+
+default param
+sampling_strategy = {4: 300,  8: 300,}
+0.6670792079207921
+0.6656346749226006
+
+default param
+sampling_strategy = {4: 400, 8: 400,}
+0.6522277227722773
+0.6588235294117647
 
 default param
 sampling_strategy = {4: 600, 7:800,8: 600}
 0.6365325077399381
+
+
+best_param
+sampling_strategy = {4: 250, 8: 250}
+0.7762052189296771
+0.7724458204334366
+
+best_param
+sampling_strategy = {4: 400, 8: 400,}
+0.7669172932330827
+0.7628482972136222
+
+==========After PCA==========
+default param
+default dataset
+0.5748194014447885
+0.6659442724458204
+
+default param
+sampling_strategy = {4: 250, 8: 250}
+0.6769865841073271
+0.6755417956656347
+
+best param
+sampling_strategy = {4: 250, 8: 250}
+0.7863777089783281
+0.7798761609907121
 
 ============Train Test Split=============
 -
